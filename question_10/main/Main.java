@@ -1,4 +1,4 @@
-package reflection;
+package main;
 
 import java.util.*;
 import java.lang.Thread;
@@ -17,13 +17,16 @@ public class Main
 		//Set the class name and the method name, here we invoke A.f1
 		String classname = "reflection.A";
 		String methodname = "f1";
+		
 		try{
 			Class cl = Class.forName(classname);
 			Method m = cl.getMethod(methodname);
 			//Invoke cl.method 3 times , invoke once per 5 seconds
 			InvokeMethod(5,3,m,cl);
+			
 		}catch(Exception e){
 			e.printStackTrace();
+			
 		}
 		System.exit(0);
 	}
