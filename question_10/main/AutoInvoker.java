@@ -10,7 +10,7 @@ import java.lang.reflect.*;
  * @version 2016-12-06
  * @author Jimmy.Zhu
  */
-public class Main
+public class AutoInvoker
 {
 	public static void main(String[] args)
 	{
