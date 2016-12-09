@@ -15,7 +15,7 @@ public class AutoInvoker
 	public static void main(String[] args)
 	{
 		//Set the class name and the method name, here we invoke A.f1
-		String classname = "reflection.A";
+		String classname = "main.A";
 		String methodname = "f1";
 		
 		try{
