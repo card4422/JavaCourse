@@ -15,7 +15,7 @@ public class TxtReader
 	public static void main(String [] args) throws IOException{
 		try
 		{		
-			File f=new File("C:/Users/I334601/workspace/JavaCourse/test.txt");
+			File f=new File("E:/workspace/JavaCourse/test.txt");
 			FileReader fr = new FileReader(f);
 			BufferedReader br = new BufferedReader(fr);
 			

@@ -30,7 +30,7 @@ public class AutoInvoker
 		}
 		System.exit(0);
 	}
-	/*
+	/**
 	 * @param internal seconds between two operation
 	 * @param count the frequency invoke method m
 	 * @param m the method invoking
