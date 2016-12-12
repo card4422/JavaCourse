@@ -47,7 +47,6 @@ public class XlsTest {
             String id = null;
 
             //read cells one by one
-
             while (cells.hasNext())
             {
                 cell = (HSSFCell) cells.next();
@@ -69,9 +68,11 @@ public class XlsTest {
             marks.put(id, mark);
         }
         double sum = 0;
+        double count = 0;
         for(String key : marks.keySet()){
             sum += marks.get(key);
+            count++;
         }
-        System.out.println(sum);
+        System.out.println(sum/count);
     }
 }

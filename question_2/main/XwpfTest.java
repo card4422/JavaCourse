@@ -129,7 +129,6 @@ public class XwpfTest {
                             para.removeRun(i);
                             para.insertNewRun(i).addPicture(new FileInputStream(runText),
                                     getPictureType(runText), runText, Units.toEMU(200), Units.toEMU(200)); // 200x200 pixels
-                            para.insertNewRun(i).addBreak(BreakType.PAGE);
                         } catch (InvalidFormatException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
