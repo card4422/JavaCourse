@@ -26,7 +26,7 @@ public class XlsTest {
     public static void readXLSFile() throws IOException
     {
         HashMap <String, Double> marks = new HashMap<String, Double>();
-        InputStream ExcelFileToRead = new FileInputStream("C:/Test.xls");
+        InputStream ExcelFileToRead = new FileInputStream("E:/workspace/JavaCourse/xlstest.xls");
         HSSFWorkbook wb = new HSSFWorkbook(ExcelFileToRead);
 
         HSSFSheet sheet = wb.getSheetAt(0);
@@ -68,6 +68,10 @@ public class XlsTest {
             }
             marks.put(id, mark);
         }
-
+        double sum = 0;
+        for(String key : marks.keySet()){
+            sum += marks.get(key);
+        }
+        System.out.println(sum);
     }
 }

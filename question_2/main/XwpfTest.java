@@ -41,7 +41,7 @@ public class XwpfTest {
 
         String docPath = "E:/workspace/JavaCourse/docTest.docx";
 
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, String> params = new HashMap<String, String>();
         params.put(pre_name, pro_name);
         params.put(pre_price, pro_price);
         params.put(pre_image1, pro_image1);
@@ -66,7 +66,7 @@ public class XwpfTest {
      * @param doc    要替换的文档
      * @param params 参数
      */
-    private void replaceInPara(XWPFDocument doc, Map<String, Object> params) {
+    private void replaceInPara(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
         XWPFParagraph para;
         while (iterator.hasNext()) {
@@ -81,7 +81,7 @@ public class XwpfTest {
      * @return
      */
     private static int getPictureType(String imgFile){
-        int format;
+        int format = -1;
         if(imgFile.endsWith(".emf")) format = XWPFDocument.PICTURE_TYPE_EMF;
         else if(imgFile.endsWith(".wmf")) format = XWPFDocument.PICTURE_TYPE_WMF;
         else if(imgFile.endsWith(".pict")) format = XWPFDocument.PICTURE_TYPE_PICT;
@@ -94,9 +94,7 @@ public class XwpfTest {
         else if(imgFile.endsWith(".bmp")) format = XWPFDocument.PICTURE_TYPE_BMP;
         else if(imgFile.endsWith(".wpg")) format = XWPFDocument.PICTURE_TYPE_WPG;
         else {
-            System.err.println("Unsupported picture: " + imgFile +
-                    ". Expected emf|wmf|pict|jpeg|png|dib|gif|tiff|eps|bmp|wpg");
-            return -1;
+            //System.out.println("Unsupported picture: " + imgFile + ". Expected emf|wmf|pict|jpeg|png|dib|gif|tiff|eps|bmp|wpg");
         }
         return format;
     }
@@ -106,7 +104,7 @@ public class XwpfTest {
      * @param para   要替换的段落
      * @param params 参数
      */
-    private void replaceInPara(XWPFParagraph para, Map<String, Object> params) {
+    private void replaceInPara(XWPFParagraph para, Map<String, String> params) {
         List<XWPFRun> runs;
         Matcher matcher;
         String str = para.getParagraphText();
@@ -118,22 +116,28 @@ public class XwpfTest {
                 matcher = this.matcher(runText);
                 if (matcher.find()) {
                     while ((matcher = this.matcher(runText)).find()) {
-                        runText = matcher.replaceFirst(String.valueOf(params.get(matcher.group(1))));
+                            runText = matcher.replaceFirst(String.valueOf(params.get(matcher.group(1))));
                     }
                     //直接调用XWPFRun的setText()方法设置文本时，在底层会重新创建一个XWPFRun，把文本附加在当前文本后面，
                     //所以我们不能直接设值，需要先删除当前run,然后再自己手动插入一个新的run。
-                    para.removeRun(i);
-                    para.insertNewRun(i).setText(runText);
-                    /*
-                    try {
-
-                        para.insertNewRun(i).addPicture(new FileInputStream(runText), getPictureType(runText), runText, Units.toEMU(200), Units.toEMU(200)); // 200x200 pixels
-                    } catch (InvalidFormatException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(getPictureType(runText) == -1) {
+                        para.removeRun(i);
+                        para.insertNewRun(i).setText(runText);
                     }
-                    */
+                    else {
+                        try {
+                            para.removeRun(i);
+                            para.insertNewRun(i).addPicture(new FileInputStream(runText),
+                                    getPictureType(runText), runText, Units.toEMU(200), Units.toEMU(200)); // 200x200 pixels
+                            para.insertNewRun(i).addBreak(BreakType.PAGE);
+                        } catch (InvalidFormatException e) {
+                            e.printStackTrace();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+
                 }
             }
         }
@@ -145,7 +149,7 @@ public class XwpfTest {
      * @param doc    要替换的文档
      * @param params 参数
      */
-    private void replaceInTable(XWPFDocument doc, Map<String, Object> params) {
+    private void replaceInTable(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFTable> iterator = doc.getTablesIterator();
         XWPFTable table;
         List<XWPFTableRow> rows;
