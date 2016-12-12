@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jsr173_1.0_api">
+    <CLASSES>
+      <root url="jar:///Library/Library/java/xmlbeans/xmlbeans-2.6.0/lib/jsr173_1.0_api.jar!/" />
+      <root url="jar:///Library/Library/java/xmlbeans/xmlbeans-2.6.0/lib/resolver.jar!/" />
+      <root url="jar:///Library/Library/java/xmlbeans/xmlbeans-2.6.0/lib/xbean.jar!/" />
+      <root url="jar:///Library/Library/java/xmlbeans/xmlbeans-2.6.0/lib/xbean_xpath.jar!/" />
+      <root url="jar:///Library/Library/java/xmlbeans/xmlbeans-2.6.0/lib/xmlbeans-qname.jar!/" />
+      <root url="jar:///Library/Library/java/xmlbeans/xmlbeans-2.6.0/lib/xmlpublic.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

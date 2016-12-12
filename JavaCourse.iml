@@ -21,7 +21,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="poi-scratchpad-3.15" level="application" />
-    <orderEntry type="library" name="jsr173_1.0_api" level="application" />
+    <orderEntry type="library" name="jsr173_1.0_api" level="project" />
+    <orderEntry type="library" name="poi-3" level="project" />
   </component>
 </module>
