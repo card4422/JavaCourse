@@ -1,6 +1,5 @@
 package question_10;
 
-import java.util.*;
 import java.lang.Thread;
 import java.lang.reflect.*;
 

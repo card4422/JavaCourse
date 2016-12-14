@@ -1,6 +1,5 @@
 package question_2;
 
-import java.awt.*;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Iterator;
