@@ -1,4 +1,4 @@
-package main;
+package question_2;
 
 import java.awt.*;
 import java.io.*;
@@ -9,20 +9,10 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
-import javax.xml.namespace.QName;
-
-import org.apache.poi.POIXMLDocumentPart;
-import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.usermodel.Range;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.util.IOUtils;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.poi.util.Units;
-import org.apache.xmlbeans.XmlCursor;
-import org.apache.xmlbeans.XmlObject;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTObject;
+
 /**
  * Created by Jimmy on 2016/12/10.
  */
@@ -30,6 +20,7 @@ import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTObject;
 public class XwpfTest {
 
     public void testReadByDoc() throws Exception{
+    	//the list of variable need to be replace
         String pre_name = "name";
         String pre_price = "price";
         String pre_image1 = "image1";
@@ -41,6 +32,7 @@ public class XwpfTest {
 
         String docPath = "E:/workspace/JavaCourse/docTest.docx";
 
+        //Store all variables in the params
         Map<String, String> params = new HashMap<String, String>();
         params.put(pre_name, pro_name);
         params.put(pre_price, pro_price);
@@ -49,9 +41,9 @@ public class XwpfTest {
 
         InputStream is = new FileInputStream(docPath);
         XWPFDocument doc = new XWPFDocument(is);
-        //替换段落里面的变量
+        //replace the param in paragraph
         this.replaceInPara(doc, params);
-        //替换表格里面的变量
+        //replace the param in table
         this.replaceInTable(doc, params);
 
         OutputStream os = new FileOutputStream("E:/workspace/JavaCourse/docTest1.docx");
@@ -61,10 +53,10 @@ public class XwpfTest {
     }
 
     /**
-     * 替换段落里面的变量
+     * replace the variables in paragraph
      *
-     * @param doc    要替换的文档
-     * @param params 参数
+     * @param doc    the doc we read
+     * @param params the variables we need to replace
      */
     private void replaceInPara(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
@@ -99,10 +91,10 @@ public class XwpfTest {
         return format;
     }
     /**
-     * 替换段落里面的变量
+     * replace the variables in paragraph
      *
-     * @param para   要替换的段落
-     * @param params 参数
+     * @param para   the paragraph we read
+     * @param params the variables we need to replace
      */
     private void replaceInPara(XWPFParagraph para, Map<String, String> params) {
         List<XWPFRun> runs;
@@ -118,8 +110,6 @@ public class XwpfTest {
                     while ((matcher = this.matcher(runText)).find()) {
                             runText = matcher.replaceFirst(String.valueOf(params.get(matcher.group(1))));
                     }
-                    //直接调用XWPFRun的setText()方法设置文本时，在底层会重新创建一个XWPFRun，把文本附加在当前文本后面，
-                    //所以我们不能直接设值，需要先删除当前run,然后再自己手动插入一个新的run。
                     if(getPictureType(runText) == -1) {
                         para.removeRun(i);
                         para.insertNewRun(i).setText(runText);
@@ -145,8 +135,8 @@ public class XwpfTest {
     /**
      * 替换表格里面的变量
      *
-     * @param doc    要替换的文档
-     * @param params 参数
+     * @param doc    
+     * @param params the variables we need to replace
      */
     private void replaceInTable(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFTable> iterator = doc.getTablesIterator();
@@ -170,19 +160,20 @@ public class XwpfTest {
     }
 
     /**
-     * 正则匹配字符串
+     * 
      *
      * @param str
      * @return
      */
     private Matcher matcher(String str) {
+    	//Using regular expression to match the key word
         Pattern pattern = Pattern.compile("\\$(.*)\\$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         return matcher;
     }
 
     /**
-     * 关闭输入流
+     * 
      *
      * @param is
      */
@@ -197,7 +188,7 @@ public class XwpfTest {
     }
 
     /**
-     * 关闭输出流
+     * 
      *
      * @param os
      */

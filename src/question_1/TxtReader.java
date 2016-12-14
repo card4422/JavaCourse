@@ -1,12 +1,10 @@
-package main;
+package question_1;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,9 +15,10 @@ public class TxtReader
 		{		
 			File f=new File("E:/workspace/JavaCourse/test.txt");
 			FileReader fr = new FileReader(f);
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(fr);
 			
-			Map<String, Integer> WordMap = new HashMap();
+			Map<String, Integer> WordMap = new HashMap<String, Integer>();
 						
 			String str = new String();
 			int tempNum = 0;

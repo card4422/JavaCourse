@@ -1,4 +1,4 @@
-package main;
+package question_2;
 
 /**
  * Created by Jimmy on 2016/12/11.
