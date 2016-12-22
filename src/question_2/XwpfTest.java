@@ -12,11 +12,14 @@ import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.poi.util.Units;
+
 import org.docx4j.Docx4J;
 import org.docx4j.convert.out.FOSettings;
 import org.docx4j.fonts.IdentityPlusMapper;
 import org.docx4j.fonts.Mapper;
+import org.docx4j.fonts.PhysicalFont;
 import org.docx4j.fonts.PhysicalFonts;
+import org.docx4j.model.fields.FieldUpdater;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 /**
@@ -56,7 +59,11 @@ public class XwpfTest {
         doc.write(os);
         this.close(os);
         this.close(is);
+
+
+        Word2Pdf("E:/workspace/JavaCourse/docTest1.docx","E:/workspace/JavaCourse/test.pdf");
     }
+
 
     private static void Word2Pdf(String docxPath, String pdfPath) throws Exception {
         OutputStream os = null;
@@ -65,9 +72,20 @@ public class XwpfTest {
             WordprocessingMLPackage mlPackage = WordprocessingMLPackage.load(file);
             //Mapper fontMapper = new BestMatchingMapper();
             Mapper fontMapper = new IdentityPlusMapper();
+            fontMapper.put("隶书", PhysicalFonts.get("LiSu"));
+            fontMapper.put("宋体",PhysicalFonts.get("SimSun"));
+            fontMapper.put("微软雅黑",PhysicalFonts.get("Microsoft Yahei"));
+            fontMapper.put("黑体",PhysicalFonts.get("SimHei"));
+            fontMapper.put("楷体",PhysicalFonts.get("KaiTi"));
+            fontMapper.put("新宋体",PhysicalFonts.get("NSimSun"));
             fontMapper.put("华文行楷", PhysicalFonts.get("STXingkai"));
             fontMapper.put("华文仿宋", PhysicalFonts.get("STFangsong"));
-            fontMapper.put("隶书", PhysicalFonts.get("LiSu"));
+            fontMapper.put("宋体扩展",PhysicalFonts.get("simsun-extB"));
+            fontMapper.put("仿宋",PhysicalFonts.get("FangSong"));
+            fontMapper.put("仿宋_GB2312",PhysicalFonts.get("FangSong_GB2312"));
+            fontMapper.put("幼圆",PhysicalFonts.get("YouYuan"));
+            fontMapper.put("华文宋体",PhysicalFonts.get("STSong"));
+            fontMapper.put("华文中宋",PhysicalFonts.get("STZhongsong"));
             mlPackage.setFontMapper(fontMapper);
 
             os = new java.io.FileOutputStream(pdfPath);
@@ -75,6 +93,8 @@ public class XwpfTest {
             FOSettings foSettings = Docx4J.createFOSettings();
             foSettings.setWmlPackage(mlPackage);
             Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
+            //Docx4J.toPDF(mlPackage,os);
+
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -82,7 +102,6 @@ public class XwpfTest {
             IOUtils.closeQuietly(os);
         }
     }
-
 
     /**
      * replace the variables in paragraph
