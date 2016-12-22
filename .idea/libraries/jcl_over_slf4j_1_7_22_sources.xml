@@ -1,0 +1,34 @@
+<component name="libraryTable">
+  <library name="jcl-over-slf4j-1.7.22-sources">
+    <CLASSES>
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/jcl-over-slf4j-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/jul-to-slf4j-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/log4j-over-slf4j-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/osgi-over-slf4j-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-android-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-api-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-ext-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-jcl-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-jdk14-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-log4j12-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-migrator-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-nop-1.7.22.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-simple-1.7.22.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/jcl-over-slf4j-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/jul-to-slf4j-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/log4j-over-slf4j-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/osgi-over-slf4j-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-android-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-api-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-ext-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-jcl-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-jdk14-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-log4j12-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-nop-1.7.22-sources.jar!/" />
+      <root url="jar://E:/java依赖包/slf4j/slf4j-1.7.22/slf4j-1.7.22/slf4j-simple-1.7.22-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,7 +1,19 @@
 package main;
 
-import java.awt.*;
+
+import org.apache.commons.io.IOUtils;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.util.Units;
+import org.apache.poi.xwpf.usermodel.*;
+import org.docx4j.Docx4J;
+import org.docx4j.convert.out.FOSettings;
+import org.docx4j.fonts.IdentityPlusMapper;
+import org.docx4j.fonts.Mapper;
+import org.docx4j.fonts.PhysicalFonts;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+
 import java.io.*;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -9,20 +21,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.imageio.ImageIO;
-import javax.xml.namespace.QName;
 
-import org.apache.poi.POIXMLDocumentPart;
-import org.apache.poi.hwpf.HWPFDocument;
-import org.apache.poi.hwpf.usermodel.Range;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.apache.poi.util.IOUtils;
-import org.apache.poi.xwpf.usermodel.*;
-import org.apache.poi.util.Units;
-import org.apache.xmlbeans.XmlCursor;
-import org.apache.xmlbeans.XmlObject;
-import org.openxmlformats.schemas.wordprocessingml.x2006.main.CTObject;
 /**
  * Created by Jimmy on 2016/12/10.
  */
@@ -49,22 +48,60 @@ public class XwpfTest {
 
         InputStream is = new FileInputStream(docPath);
         XWPFDocument doc = new XWPFDocument(is);
-        //Ìæ»»¶ÎÂäÀïÃæµÄ±äÁ¿
+        //æ›¿æ¢æ®µè½é‡Œé¢çš„å˜é‡
         this.replaceInPara(doc, params);
-        //Ìæ»»±í¸ñÀïÃæµÄ±äÁ¿
+        //æ›¿æ¢è¡¨æ ¼é‡Œé¢çš„å˜é‡
         this.replaceInTable(doc, params);
 
         OutputStream os = new FileOutputStream("E:/workspace/JavaCourse/docTest1.docx");
         doc.write(os);
         this.close(os);
         this.close(is);
+
+        String docxPath = "E:/workspace/JavaCourse/docTest1.docx";
+        String filePath = "E:/workspace/JavaCourse/";
+        Word2Pdf(docxPath ,filePath);
     }
 
     /**
-     * Ìæ»»¶ÎÂäÀïÃæµÄ±äÁ¿
      *
-     * @param doc    ÒªÌæ»»µÄÎÄµµ
-     * @param params ²ÎÊı
+     * Convert docx to PDF
+     *
+     * @param docxPath
+     * @param pdfPath
+     * @throws Exception
+     */
+    private static void Word2Pdf(String docxPath, String pdfPath) throws Exception {
+        OutputStream os = null;
+        try {
+            File file = new File(docxPath);
+            WordprocessingMLPackage mlPackage = WordprocessingMLPackage.load(file);
+            //Mapper fontMapper = new BestMatchingMapper();
+            Mapper fontMapper = new IdentityPlusMapper();
+            fontMapper.put("åæ–‡è¡Œæ¥·", PhysicalFonts.get("STXingkai"));
+            fontMapper.put("åæ–‡ä»¿å®‹", PhysicalFonts.get("STFangsong"));
+            fontMapper.put("éš¶ä¹¦", PhysicalFonts.get("LiSu"));
+            mlPackage.setFontMapper(fontMapper);
+
+            os = new java.io.FileOutputStream(pdfPath);
+
+            FOSettings foSettings = Docx4J.createFOSettings();
+            foSettings.setWmlPackage(mlPackage);
+            Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            IOUtils.closeQuietly(os);
+        }
+    }
+
+
+    /**
+     * æ›¿æ¢æ®µè½é‡Œé¢çš„å˜é‡
+     *
+     * @param doc    è¦æ›¿æ¢çš„æ–‡æ¡£
+     * @param params å‚æ•°
      */
     private void replaceInPara(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
@@ -99,10 +136,10 @@ public class XwpfTest {
         return format;
     }
     /**
-     * Ìæ»»¶ÎÂäÀïÃæµÄ±äÁ¿
+     * æ›¿æ¢æ®µè½é‡Œé¢çš„å˜é‡
      *
-     * @param para   ÒªÌæ»»µÄ¶ÎÂä
-     * @param params ²ÎÊı
+     * @param para   è¦æ›¿æ¢çš„æ®µè½
+     * @param params å‚æ•°
      */
     private void replaceInPara(XWPFParagraph para, Map<String, String> params) {
         List<XWPFRun> runs;
@@ -118,8 +155,8 @@ public class XwpfTest {
                     while ((matcher = this.matcher(runText)).find()) {
                             runText = matcher.replaceFirst(String.valueOf(params.get(matcher.group(1))));
                     }
-                    //Ö±½Óµ÷ÓÃXWPFRunµÄsetText()·½·¨ÉèÖÃÎÄ±¾Ê±£¬ÔÚµ×²ã»áÖØĞÂ´´½¨Ò»¸öXWPFRun£¬°ÑÎÄ±¾¸½¼ÓÔÚµ±Ç°ÎÄ±¾ºóÃæ£¬
-                    //ËùÒÔÎÒÃÇ²»ÄÜÖ±½ÓÉèÖµ£¬ĞèÒªÏÈÉ¾³ıµ±Ç°run,È»ºóÔÙ×Ô¼ºÊÖ¶¯²åÈëÒ»¸öĞÂµÄrun¡£
+                    //ç›´æ¥è°ƒç”¨XWPFRunçš„setText()æ–¹æ³•è®¾ç½®æ–‡æœ¬æ—¶ï¼Œåœ¨åº•å±‚ä¼šé‡æ–°åˆ›å»ºä¸€ä¸ªXWPFRunï¼ŒæŠŠæ–‡æœ¬é™„åŠ åœ¨å½“å‰æ–‡æœ¬åé¢ï¼Œ
+                    //æ‰€ä»¥æˆ‘ä»¬ä¸èƒ½ç›´æ¥è®¾å€¼ï¼Œéœ€è¦å…ˆåˆ é™¤å½“å‰run,ç„¶åå†è‡ªå·±æ‰‹åŠ¨æ’å…¥ä¸€ä¸ªæ–°çš„runã€‚
                     if(getPictureType(runText) == -1) {
                         para.removeRun(i);
                         para.insertNewRun(i).setText(runText);
@@ -143,10 +180,10 @@ public class XwpfTest {
     }
 
     /**
-     * Ìæ»»±í¸ñÀïÃæµÄ±äÁ¿
+     * æ›¿æ¢è¡¨æ ¼é‡Œé¢çš„å˜é‡
      *
-     * @param doc    ÒªÌæ»»µÄÎÄµµ
-     * @param params ²ÎÊı
+     * @param doc    è¦æ›¿æ¢çš„æ–‡æ¡£
+     * @param params å‚æ•°
      */
     private void replaceInTable(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFTable> iterator = doc.getTablesIterator();
@@ -170,7 +207,7 @@ public class XwpfTest {
     }
 
     /**
-     * ÕıÔòÆ¥Åä×Ö·û´®
+     * æ­£åˆ™åŒ¹é…å­—ç¬¦ä¸²
      *
      * @param str
      * @return
@@ -182,7 +219,7 @@ public class XwpfTest {
     }
 
     /**
-     * ¹Ø±ÕÊäÈëÁ÷
+     * å…³é—­è¾“å…¥æµ
      *
      * @param is
      */
@@ -197,7 +234,7 @@ public class XwpfTest {
     }
 
     /**
-     * ¹Ø±ÕÊä³öÁ÷
+     * å…³é—­è¾“å‡ºæµ
      *
      * @param os
      */
