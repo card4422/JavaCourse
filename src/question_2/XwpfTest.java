@@ -8,9 +8,16 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.poi.util.Units;
+import org.docx4j.Docx4J;
+import org.docx4j.convert.out.FOSettings;
+import org.docx4j.fonts.IdentityPlusMapper;
+import org.docx4j.fonts.Mapper;
+import org.docx4j.fonts.PhysicalFonts;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 
 /**
  * Created by Jimmy on 2016/12/10.
@@ -50,6 +57,32 @@ public class XwpfTest {
         this.close(os);
         this.close(is);
     }
+
+    private static void Word2Pdf(String docxPath, String pdfPath) throws Exception {
+        OutputStream os = null;
+        try {
+            File file = new File(docxPath);
+            WordprocessingMLPackage mlPackage = WordprocessingMLPackage.load(file);
+            //Mapper fontMapper = new BestMatchingMapper();
+            Mapper fontMapper = new IdentityPlusMapper();
+            fontMapper.put("ÂçéÊñáË°åÊ•∑", PhysicalFonts.get("STXingkai"));
+            fontMapper.put("ÂçéÊñá‰ªøÂÆã", PhysicalFonts.get("STFangsong"));
+            fontMapper.put("Èö∂‰π¶", PhysicalFonts.get("LiSu"));
+            mlPackage.setFontMapper(fontMapper);
+
+            os = new java.io.FileOutputStream(pdfPath);
+
+            FOSettings foSettings = Docx4J.createFOSettings();
+            foSettings.setWmlPackage(mlPackage);
+            Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
+
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }finally {
+            IOUtils.closeQuietly(os);
+        }
+    }
+
 
     /**
      * replace the variables in paragraph
@@ -132,7 +165,7 @@ public class XwpfTest {
     }
 
     /**
-     * ÃÊªª±Ì∏Ò¿Ô√Êµƒ±‰¡ø
+     * ÔøΩÊªªÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩƒ±ÔøΩÔøΩÔøΩ
      *
      * @param doc    
      * @param params the variables we need to replace
