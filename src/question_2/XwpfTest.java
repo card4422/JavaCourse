@@ -1,19 +1,6 @@
-package main;
-
-
-import org.apache.commons.io.IOUtils;
-import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
-import org.apache.poi.util.Units;
-import org.apache.poi.xwpf.usermodel.*;
-import org.docx4j.Docx4J;
-import org.docx4j.convert.out.FOSettings;
-import org.docx4j.fonts.IdentityPlusMapper;
-import org.docx4j.fonts.Mapper;
-import org.docx4j.fonts.PhysicalFonts;
-import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+package question_2;
 
 import java.io.*;
-
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +8,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xwpf.usermodel.*;
+import org.apache.poi.util.Units;
 
 /**
  * Created by Jimmy on 2016/12/10.
@@ -29,6 +19,7 @@ import java.util.regex.Pattern;
 public class XwpfTest {
 
     public void testReadByDoc() throws Exception{
+    	//the list of variable need to be replace
         String pre_name = "name";
         String pre_price = "price";
         String pre_image1 = "image1";
@@ -40,6 +31,7 @@ public class XwpfTest {
 
         String docPath = "E:/workspace/JavaCourse/docTest.docx";
 
+        //Store all variables in the params
         Map<String, String> params = new HashMap<String, String>();
         params.put(pre_name, pro_name);
         params.put(pre_price, pro_price);
@@ -48,60 +40,22 @@ public class XwpfTest {
 
         InputStream is = new FileInputStream(docPath);
         XWPFDocument doc = new XWPFDocument(is);
-        //替换段落里面的变量
+        //replace the param in paragraph
         this.replaceInPara(doc, params);
-        //替换表格里面的变量
+        //replace the param in table
         this.replaceInTable(doc, params);
 
         OutputStream os = new FileOutputStream("E:/workspace/JavaCourse/docTest1.docx");
         doc.write(os);
         this.close(os);
         this.close(is);
-
-        String docxPath = "E:/workspace/JavaCourse/docTest1.docx";
-        String filePath = "E:/workspace/JavaCourse/";
-        Word2Pdf(docxPath ,filePath);
     }
 
     /**
+     * replace the variables in paragraph
      *
-     * Convert docx to PDF
-     *
-     * @param docxPath
-     * @param pdfPath
-     * @throws Exception
-     */
-    private static void Word2Pdf(String docxPath, String pdfPath) throws Exception {
-        OutputStream os = null;
-        try {
-            File file = new File(docxPath);
-            WordprocessingMLPackage mlPackage = WordprocessingMLPackage.load(file);
-            //Mapper fontMapper = new BestMatchingMapper();
-            Mapper fontMapper = new IdentityPlusMapper();
-            fontMapper.put("华文行楷", PhysicalFonts.get("STXingkai"));
-            fontMapper.put("华文仿宋", PhysicalFonts.get("STFangsong"));
-            fontMapper.put("隶书", PhysicalFonts.get("LiSu"));
-            mlPackage.setFontMapper(fontMapper);
-
-            os = new java.io.FileOutputStream(pdfPath);
-
-            FOSettings foSettings = Docx4J.createFOSettings();
-            foSettings.setWmlPackage(mlPackage);
-            Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
-
-        }catch(Exception ex){
-            ex.printStackTrace();
-        }finally {
-            IOUtils.closeQuietly(os);
-        }
-    }
-
-
-    /**
-     * 替换段落里面的变量
-     *
-     * @param doc    要替换的文档
-     * @param params 参数
+     * @param doc    the doc we read
+     * @param params the variables we need to replace
      */
     private void replaceInPara(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFParagraph> iterator = doc.getParagraphsIterator();
@@ -136,10 +90,10 @@ public class XwpfTest {
         return format;
     }
     /**
-     * 替换段落里面的变量
+     * replace the variables in paragraph
      *
-     * @param para   要替换的段落
-     * @param params 参数
+     * @param para   the paragraph we read
+     * @param params the variables we need to replace
      */
     private void replaceInPara(XWPFParagraph para, Map<String, String> params) {
         List<XWPFRun> runs;
@@ -155,8 +109,6 @@ public class XwpfTest {
                     while ((matcher = this.matcher(runText)).find()) {
                             runText = matcher.replaceFirst(String.valueOf(params.get(matcher.group(1))));
                     }
-                    //直接调用XWPFRun的setText()方法设置文本时，在底层会重新创建一个XWPFRun，把文本附加在当前文本后面，
-                    //所以我们不能直接设值，需要先删除当前run,然后再自己手动插入一个新的run。
                     if(getPictureType(runText) == -1) {
                         para.removeRun(i);
                         para.insertNewRun(i).setText(runText);
@@ -180,10 +132,10 @@ public class XwpfTest {
     }
 
     /**
-     * 替换表格里面的变量
+     * �滻��������ı���
      *
-     * @param doc    要替换的文档
-     * @param params 参数
+     * @param doc    
+     * @param params the variables we need to replace
      */
     private void replaceInTable(XWPFDocument doc, Map<String, String> params) {
         Iterator<XWPFTable> iterator = doc.getTablesIterator();
@@ -207,19 +159,20 @@ public class XwpfTest {
     }
 
     /**
-     * 正则匹配字符串
+     * 
      *
      * @param str
      * @return
      */
     private Matcher matcher(String str) {
+    	//Using regular expression to match the key word
         Pattern pattern = Pattern.compile("\\$(.*)\\$", Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(str);
         return matcher;
     }
 
     /**
-     * 关闭输入流
+     * 
      *
      * @param is
      */
@@ -234,7 +187,7 @@ public class XwpfTest {
     }
 
     /**
-     * 关闭输出流
+     * 
      *
      * @param os
      */

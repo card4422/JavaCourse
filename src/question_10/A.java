@@ -1,4 +1,4 @@
-package main;
+package question_10;
 
 public class A
 {

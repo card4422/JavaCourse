@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="question_1"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
-	<classpathentry kind="src" path="question_2"/>
-	<classpathentry kind="src" path="question_3"/>
-	<classpathentry kind="src" path="question_4"/>
-	<classpathentry kind="src" path="question_5"/>
-	<classpathentry kind="src" path="question_6"/>
-	<classpathentry kind="src" path="question_7"/>
-	<classpathentry kind="src" path="question_8"/>
-	<classpathentry kind="src" path="question_9"/>
-	<classpathentry kind="src" path="question_10"/>
-	<classpathentry kind="src" path="question_11"/>
-	<classpathentry kind="src" path="question_12"/>
-	<classpathentry kind="src" path="question_13"/>
+	<classpathentry kind="lib" path="C:/jar_lib/poi-3.15/poi-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/poi-3.15/poi-examples-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/poi-3.15/poi-excelant-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/poi-3.15/poi-ooxml-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/poi-3.15/poi-ooxml-schemas-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/poi-3.15/poi-scratchpad-3.15.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/xmlbeans-2.6.0/lib/jsr173_1.0_api.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/xmlbeans-2.6.0/lib/resolver.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/xmlbeans-2.6.0/lib/xbean.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/xmlbeans-2.6.0/lib/xbean_xpath.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/xmlbeans-2.6.0/lib/xmlbeans-qname.jar"/>
+	<classpathentry kind="lib" path="C:/jar_lib/xmlbeans-2.6.0/lib/xmlpublic.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
