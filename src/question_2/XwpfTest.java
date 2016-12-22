@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.apache.commons.io.IOUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.*;
@@ -58,16 +59,21 @@ public class XwpfTest {
         //replace the param in table
         this.replaceInTable(doc, params);
 
-        OutputStream os = new FileOutputStream(root_path + "docTest1.docx");
+        //OutputStream os = new FileOutputStream(root_path + "docTest1.docx");
+        OutputStream os = new FileOutputStream(root_path + "docTest1.doc");
         doc.write(os);
         this.close(os);
         this.close(is);
 
 
-        Word2Pdf(root_path + "docTest1.docx",root_path + "test.pdf");
+     //   Word2Pdf(root_path,"docTest1.doc", "test.pdf");
     }
 
 
+    private static void Word2Pdf(String Path,String docxPath, String pdfPath) throws Exception {
+
+    }
+/*
     private static void Word2Pdf(String docxPath, String pdfPath) throws Exception {
         OutputStream os = null;
         try {
@@ -105,7 +111,7 @@ public class XwpfTest {
             IOUtils.closeQuietly(os);
         }
     }
-
+*/
     /**
      * replace the variables in paragraph
      *
