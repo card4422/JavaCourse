@@ -61,7 +61,7 @@ public class XwpfTest {
         this.close(is);
 
 
-        Word2Pdf("E:/workspace/JavaCourse/docTest1.docx","E:/workspace/JavaCourse/test.pdf");
+        Word2Pdf("E:/workspace/JavaCourse/////docTest1.docx","E:/workspace/JavaCourse/test.pdf");
     }
 
 
@@ -90,10 +90,10 @@ public class XwpfTest {
 
             os = new java.io.FileOutputStream(pdfPath);
 
-            FOSettings foSettings = Docx4J.createFOSettings();
-            foSettings.setWmlPackage(mlPackage);
-            Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
-            //Docx4J.toPDF(mlPackage,os);
+           // FOSettings foSettings = Docx4J.createFOSettings();
+            //foSettings.setWmlPackage(mlPackage);
+           // Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
+            Docx4J.toPDF(mlPackage,os);
 
 
         }catch(Exception ex){
@@ -184,7 +184,7 @@ public class XwpfTest {
     }
 
     /**
-     * �滻�������ı���
+     * ?????????????
      *
      * @param doc    
      * @param params the variables we need to replace
