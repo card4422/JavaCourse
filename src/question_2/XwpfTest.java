@@ -36,10 +36,13 @@ public class XwpfTest {
         String pre_image2 = "image2";
         String pro_name = "cake";
         String pro_price = "5.0";
-        String pro_image1 = "E:/workspace/JavaCourse/image1.jpg";
-        String pro_image2 = "E:/workspace/JavaCourse/image2.jpeg";
 
-        String docPath = "E:/workspace/JavaCourse/docTest.docx";
+        //String root_path = "E:/Workspaces/MyEclipse 2015 CI/JavaCourse/";
+        String root_path = "E:/workspace/JavaCourse/";
+        String pro_image1 = root_path + "image1.jpg";
+        String pro_image2 = root_path + "image2.jpeg";
+
+        String docPath = root_path + "docTest.docx";
 
         //Store all variables in the params
         Map<String, String> params = new HashMap<String, String>();
@@ -55,13 +58,13 @@ public class XwpfTest {
         //replace the param in table
         this.replaceInTable(doc, params);
 
-        OutputStream os = new FileOutputStream("E:/workspace/JavaCourse/docTest1.docx");
+        OutputStream os = new FileOutputStream(root_path + "docTest1.docx");
         doc.write(os);
         this.close(os);
         this.close(is);
 
 
-        Word2Pdf("E:/workspace/JavaCourse/////docTest1.docx","E:/workspace/JavaCourse/test.pdf");
+        Word2Pdf(root_path + "docTest1.docx",root_path + "test.pdf");
     }
 
 
