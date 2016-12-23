@@ -22,9 +22,9 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="poi-3.15" level="project" />
-    <orderEntry type="library" name="jsr173_1.0_api" level="project" />
-    <orderEntry type="library" name="docx4j-3.2.1" level="project" />
-    <orderEntry type="library" name="commons-io-2.5" level="project" />
-    <orderEntry type="library" name="jcl-over-slf4j-1.7.22-sources" level="project" />
+    <orderEntry type="library" name="json-lib-2.4-jdk15" level="project" />
+    <orderEntry type="library" name="javax.mail" level="project" />
+    <orderEntry type="library" name="antlr-2.7.7" level="project" />
+    <orderEntry type="library" name="commons-lang3-3.5-javadoc" level="project" />
   </component>
 </module>

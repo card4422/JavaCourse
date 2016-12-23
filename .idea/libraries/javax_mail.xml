@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="docx4j-3.2.1">
+  <library name="javax.mail">
     <CLASSES>
-      <root url="jar://E:/java依赖包/docx4j/docx4j-3.2.1.jar!/" />
+      <root url="jar:///Library/Library/java/javamail/javax.mail.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
