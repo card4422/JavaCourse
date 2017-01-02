@@ -36,6 +36,7 @@ public class SaxXMLParser {
         XMLReader parser = XMLReaderFactory.createXMLReader();
         MySAXHandler scoreHandler = (new SaxXMLParser()).new MySAXHandler();
         parser.setContentHandler(scoreHandler);
+        //parser.parse("E:/Workspaces/MyEclipse 2015 CI/JavaCourse/test.xml");
         parser.parse("E:/workspace/JavaCourse/test.xml");
         DecimalFormat df = new DecimalFormat("#.00");
         System.out.println(df.format(scoreHandler.getmaxScore()));

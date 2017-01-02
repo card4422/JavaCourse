@@ -27,6 +27,7 @@ import org.xml.sax.SAXException;
  */
 public class DomXMLParser {
     public static void main(String args[]) {
+        //ReadXml("E:/Workspaces/MyEclipse 2015 CI/JavaCourse/test.xml");
         ReadXml("E:/workspace/JavaCourse/test.xml");
     }
 
