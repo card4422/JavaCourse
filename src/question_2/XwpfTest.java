@@ -7,16 +7,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-/*
+
 import com.google.common.annotations.VisibleForTesting;
 import org.apache.commons.io.IOUtils;
-*/
+
 
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.xwpf.usermodel.*;
 import org.apache.poi.util.Units;
 
-/*
+
 import org.docx4j.Docx4J;
 import org.docx4j.convert.out.FOSettings;
 import org.docx4j.fonts.IdentityPlusMapper;
@@ -25,7 +25,7 @@ import org.docx4j.fonts.PhysicalFont;
 import org.docx4j.fonts.PhysicalFonts;
 import org.docx4j.model.fields.FieldUpdater;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
-*/
+
 
 /**
  * Created by Jimmy on 2016/12/10.
@@ -64,20 +64,19 @@ public class XwpfTest {
         this.replaceInTable(doc, params);
 
         //OutputStream os = new FileOutputStream(root_path + "docTest1.docx");
-        OutputStream os = new FileOutputStream(root_path + "docTest1.doc");
+        OutputStream os = new FileOutputStream(root_path + "docTest1.docx");
         doc.write(os);
         this.close(os);
         this.close(is);
 
-
-     //   Word2Pdf(root_path,"docTest1.doc", "test.pdf");
+        Word2Pdf(root_path+"docTest1.docx", root_path+"test.pdf");
     }
 
 
-    private static void Word2Pdf(String Path,String docxPath, String pdfPath) throws Exception {
+   /* private static void Word2Pdf(String Path,String docxPath, String pdfPath) throws Exception {
 
     }
-/*
+*/
     private static void Word2Pdf(String docxPath, String pdfPath) throws Exception {
         OutputStream os = null;
         try {
@@ -103,11 +102,10 @@ public class XwpfTest {
 
             os = new java.io.FileOutputStream(pdfPath);
 
-           // FOSettings foSettings = Docx4J.createFOSettings();
+            //FOSettings foSettings = Docx4J.createFOSettings();
             //foSettings.setWmlPackage(mlPackage);
-           // Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
+            //Docx4J.toFO(foSettings, os, Docx4J.FLAG_EXPORT_PREFER_XSL);
             Docx4J.toPDF(mlPackage,os);
-
 
         }catch(Exception ex){
             ex.printStackTrace();
@@ -115,7 +113,7 @@ public class XwpfTest {
             IOUtils.closeQuietly(os);
         }
     }
-*/
+
     /**
      * replace the variables in paragraph
      *
