@@ -17,7 +17,8 @@ public class MySqlDemo {
             e1.printStackTrace();
         }
 
-        String url="jdbc:mysql://192.168.1.100:3306/test";
+        //String url="jdbc:mysql://192.168.1.100:3306/test";
+        String url="jdbc:mysql://localhost:3306/test";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url, "root", "123456");
