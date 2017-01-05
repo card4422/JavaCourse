@@ -25,8 +25,9 @@ public class XlsTest {
 
     public static void readXLSFile() throws IOException
     {
-        HashMap <String, Double> marks = new HashMap<String, Double>();
-        InputStream ExcelFileToRead = new FileInputStream("E:/workspace/JavaCourse/xlstest.xls");
+        HashMap <Integer, Double> marks = new HashMap<Integer, Double>();
+        InputStream ExcelFileToRead = new FileInputStream("/Users/zhuzheng/workspace/JavaCourse/test.xls");
+        //InputStream ExcelFileToRead = new FileInputStream("E:/workspace/JavaCourse/xlstest.xls");
         HSSFWorkbook wb = new HSSFWorkbook(ExcelFileToRead);
 
         HSSFSheet sheet = wb.getSheetAt(0);
@@ -44,8 +45,8 @@ public class XlsTest {
             Iterator cells = row.cellIterator();
 
             double mark = 0;
-            String id = null;
-
+            Integer id = 0;
+            boolean flag = false;
             //read cells one by one
             while (cells.hasNext())
             {
@@ -53,26 +54,38 @@ public class XlsTest {
 
                 if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
                 {
-                    id = cell.getStringCellValue();
+                    if(cell.getStringCellValue().equals("语文")){
+                        flag = true;
+                        //id = cell.getStringCellValue();
+                        id = id +1;
+                    }
+
                 }
                 //if the variable in cell is number
                 else if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC)
                 {
-                    mark = cell.getNumericCellValue();
+                    if(flag) {
+                        mark = cell.getNumericCellValue();
+                        flag = false;
+                    }
                 }
                 else
                 {
                     System.out.println("Error in cellType");
                 }
             }
+
             marks.put(id, mark);
         }
-        double sum = 0;
-        double count = 0;
-        for(String key : marks.keySet()){
-            sum += marks.get(key);
-            count++;
+        double max = 0;
+        double temp = 0;
+        for(Integer key : marks.keySet()){
+            temp = marks.get(key);
+            if(temp>max){
+                max = temp;
+            }
         }
-        System.out.println(sum/count);
+        System.out.println(max);
+        //System.out.println(sum/count);
     }
 }
