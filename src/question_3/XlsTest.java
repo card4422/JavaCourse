@@ -27,7 +27,6 @@ public class XlsTest {
     {
         HashMap <Integer, Double> marks = new HashMap<Integer, Double>();
         InputStream ExcelFileToRead = new FileInputStream("/Users/zhuzheng/workspace/JavaCourse/test.xls");
-        //InputStream ExcelFileToRead = new FileInputStream("E:/workspace/JavaCourse/xlstest.xls");
         HSSFWorkbook wb = new HSSFWorkbook(ExcelFileToRead);
 
         HSSFSheet sheet = wb.getSheetAt(0);
